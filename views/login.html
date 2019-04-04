@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <link href="/css/common.css" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="container">
+        <div class="login-box">
+            <div class="wrapper clearfix">
+                <div class="header">
+                    <a href="/">LOGO</a>
+                    <h1>欢迎登录</h1>
+                </div>
+                <form>
+                    <ul>
+                        <li>
+                            <input type="text" id="login-user-name" class="form-control" placeholder="邮箱 / 用户名" name="user_name" />
+                        </li>
+                        <li>
+                            <input type="password" id="login-user-password" class="form-control" placeholder="密码" name="password" />
+                        </li>
+                        <div class="alert alert-danger" role="alert" id="cuowukuang"></div>
+                        <li>
+                            <button type="button" id="denglu" class="btn btn-default">登陆</button>
+                        </li>
+                    </ul>
+                </form>
+                <div class="footer">
+                    <a href="/">游客访问</a>
+                    <div style="float:right;">
+                        <span>没有账号?</span>
+                        <a href="/register">注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+<script src="/js/jquery.min.js"></script>
+<!-- 自定义JS -->
+<script type="text/javascript">
+    $("input").focus(function () {
+        $("#cuowukuang").fadeOut();
+    });
+    $("#denglu").click(function () {
+        //按钮的事件，用ajax提交表单
+        $.post("/dologin", {
+            "loginInfo": $("#login-user-name").val(),
+            "password": $("#login-user-password").val()
+        }, function (result) {
+            if (result.code == "1") {
+                //登录成功
+                alert(result.msg);
+                window.location = "/";
+            } else if (result.code == "-1") {
+                //登录失败
+                $("#cuowukuang").fadeIn();
+                $("#cuowukuang").html(result.msg);
+            } else if (result == "-3") {
+                //服务器错误
+            }
+        });
+    });
+</script>
+
+</html>

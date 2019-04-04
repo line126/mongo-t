@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+
+    <link href="/css/common.css" rel="stylesheet">
+    <link href="/css/register.css" rel="stylesheet">
+
+    <script src="/js/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="container">
+        <div class="login-box">
+            <div class="wrapper clearfix">
+                <div class="header">
+                    <a href="/">LOGO</a>
+                    <h1>欢迎注册</h1>
+                </div>
+                <form id="register_form">
+                    <ul>
+                        <li>
+                            <input class="form-control" id="register-name" type="text" name="user_name" placeholder="用户名，4-14个字母数字或2-7个汉字"
+                                tips=" " value="" errortips="用户名不合法" />
+                        </li>
+                        <li>
+                            <input class="form-control" id="register-email" type="text" name="email" placeholder="邮箱"
+                                tips=" " value="" errortips="邮箱格式不正确" />
+                        </li>
+                        <li>
+                            <input class="form-control" id="register-pwd" type="password" name="password" placeholder="密码，6-16个字符，区分大小写"
+                                tips=" " errortips="密码不符合规则" />
+                        </li>
+                        <div class="alert alert-danger" role="alert" id="cuowukuang"></div>
+                        <li>
+                            <button type="button" id="zhuce" class="btn btn-default">注册</button>
+                        </li>
+                    </ul>
+                </form>
+                <div class="footer">
+                    <a href="/">游客访问</a>
+                    <div style="float:right;">
+                        <span>已有账号</span>
+                        <a href="/login">登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+<script src="/js/jquery.min.js"></script>
+<!-- 自定义JS -->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        verify_register_form('#register_form');
+
+        /* 注册页面验证 */
+        function verify_register_form(element) {
+            $(element).find('[type=text], [type=password]').on({
+                focus: function () {
+                    if (typeof $(this).attr('tips') != 'undefined' && $(this).attr('tips') != '') {
+                        $(this).parent().append('<span class="aw-reg-tips">' + $(this).attr('tips') +
+                            '</span>');
+                    }
+                },
+                blur: function () {
+                    if ($(this).attr('tips') != '') {
+                        switch ($(this).attr('name')) {
+                            case 'user_name':
+                                $(this).parent().find('.aw-reg-tips').detach();
+                                if (strlen($(this).val()) < 4 || strlen($(this).val()) > 14) {
+                                    $(this).parent().find('.aw-reg-tips').detach();
+                                    $(this).parent().prepend(
+                                        '<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' +
+                                        $(this).attr('errortips') + '</span>');
+                                    return;
+                                } else {
+                                    $(this).parent().find('.aw-reg-tips').detach();
+                                    $(this).parent().append(
+                                        '<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>'
+                                    );
+                                }
+                                return;
+
+
+                            case 'email':
+                                $(this).parent().find('.aw-reg-tips').detach();
+                                var emailReg =
+                                    /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                                if (!emailReg.test($(this).val())) {
+                                    $(this).parent().find('.aw-reg-tips').detach();
+                                    $(this).parent().prepend(
+                                        '<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' +
+                                        $(this).attr('errortips') + '</span>');
+                                    return;
+                                } else {
+                                    $(this).parent().find('.aw-reg-tips').detach();
+                                    $(this).parent().append(
+                                        '<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>'
+                                    );
+                                }
+                                return;
+
+                            case 'password':
+                                $(this).parent().find('.aw-reg-tips').detach();
+                                var pwdReg = /^[\w]{6,16}$/;
+                                if (!pwdReg.test($(this).val())) {
+                                    $(this).parent().find('.aw-reg-tips').detach();
+                                    $(this).parent().prepend(
+                                        '<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' +
+                                        $(this).attr('errortips') + '</span>');
+                                    return;
+                                } else {
+                                    $(this).parent().find('.aw-reg-tips').detach();
+                                    $(this).parent().append(
+                                        '<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>'
+                                    );
+                                }
+                                return;
+
+                        }
+                    }
+
+                }
+            });
+        }
+        //检测字节正度
+        function strlen(str) {
+            var len = 0;
+            for (var i = 0; i < str.length; i++) {
+                var c = str.charCodeAt(i);
+                //单字节加1   
+                if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+                    len++;
+                } else {
+                    len += 2;
+                }
+            }
+            return len;
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $("input").focus(function () {
+        $("#cuowukuang").fadeOut();
+    });
+    $("#zhuce").click(function () {
+        //注册按钮的事件，用ajax提交表单
+        $.post("/doregister", {
+            "username": $("#register-name").val(),
+            "email": $("#register-email").val(),
+            "password": $("#register-pwd").val()
+        }, function (result) {
+            // alert(result.code);
+            if (result.code == "1") {
+                //注册成功
+                alert(result.msg);
+                window.location = "/";
+            } else if (result.code == "-1") {
+                //注册失败，不符合规则
+                $("#cuowukuang").fadeIn();
+                $("#cuowukuang").html(result.msg);
+            } else if (result.code == "-2") {
+                //用户名或邮箱被占用
+                $("#cuowukuang").fadeIn();
+                $("#cuowukuang").html(result.msg);
+            } else if (result == "-3") {
+                //服务器错误
+            }
+        });
+    });
+</script>
+
+
+
+</html>

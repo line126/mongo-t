@@ -1,0 +1,166 @@
+/* 重载bootstrap部分 */
+em {
+    font-style: normal;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 0;
+}
+
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+    outline: none;
+}
+
+label {
+    margin: 0;
+    font-weight: normal;
+}
+
+form {
+    margin: 0;
+}
+
+select,
+input[type="file"] {
+    line-height: 28px;
+}
+
+select {
+    width: auto;
+}
+
+.tooltip {
+    z-index: 9999;
+}
+
+.alert {
+    margin-bottom: 0px;
+    padding: 5px 14px;
+    background: #fcfddb;
+    border: 1px solid #f9f2a7;
+}
+
+.alert-danger,
+.alert-error {
+    position: relative;
+    margin-bottom: 10px;
+    background: #f2dede;
+    border: 1px solid #eed3d7;
+}
+
+.tab-content {
+    padding-bottom: 20px;
+}
+
+.form-horizontal .control-label,
+.form-horizontal .controls {
+    height: 30px;
+    line-height: 30px;
+    padding-top: 0;
+}
+
+.badge {
+    padding: 2px 6px;
+    margin-left: 5px;
+    background: #ccc;
+}
+
+.badge.badge-info {
+    background: #499ef3;
+}
+
+.badge.badge-important {
+    background: #ff3333;
+}
+
+.table-bordered>thead>tr>th,
+.table-bordered>thead>tr>td {
+    border-bottom-width: 1px;
+}
+
+.disabled,
+.disabled a {
+    cursor: default;
+}
+
+/* modal */
+.modal-backdrop,
+.modal-backdrop.fade.in {
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+}
+
+/* 公共部分 */
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    font-size: 14px;
+    line-height: 160%;
+    color: #666;
+}
+
+body,
+input,
+button,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Helvetica Neue', 'STHeiti', '微软雅黑', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    font-size: 100%;
+    line-height: 1.7;
+}
+
+dd {
+    margin-left: 10px;
+}
+
+a {
+    cursor: pointer;
+    color: #155faa;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #499ef3;
+}
+
+a:focus {
+    outline: none !important;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+/* 清除浮动 */
+.clearfix:after,.clearfix:before{ content: "";display: table;}
+.clearfix:after{ clear:both;}
+.clearfix{zoom:1;}
